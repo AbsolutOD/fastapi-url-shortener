@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "shortener-app"
+version = "0.1.0"
+description = ""
+authors = ["Matt O'Donnell <matt.odonnell@greenpages.com>"]
+readme = "README.md"
+packages = [{include = "shortener_app"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
