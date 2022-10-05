@@ -6,3 +6,4 @@
 
 # python cache
 __pycache__
+shortener.db
