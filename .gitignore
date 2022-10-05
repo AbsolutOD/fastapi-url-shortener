@@ -1,0 +1,8 @@
+# IDE settings
+.idea
+
+# Configs
+.env
+
+# python cache
+__pycache__
