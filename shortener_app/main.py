@@ -29,7 +29,7 @@ def read_root():
 @app.post("/url", response_model=schemas.URLInfo)
 def create_url(url: schemas.URLBase,
                db: Session = Depends(get_db)
-    ):
+               ):
     if not validators.url(url.target_url):
         raise_bad_request(message="Your provided URL is not valid")
     chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -45,4 +45,3 @@ def create_url(url: schemas.URLBase,
     db_url.admin_url = secret_key
 
     return db_url
-
