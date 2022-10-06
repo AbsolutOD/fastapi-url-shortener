@@ -231,7 +231,7 @@ test = ["flake8 (>=2.4.0)", "isort (>=4.2.2)", "pytest (>=2.2.3)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "2f4c3193ee5d5691363bda024c4493eb4f143aa22086aa29ddef524e618fd212"
+content-hash = "b85b3a4074134e62f344bb208215ca556369a652ecb3c354f16aedea734fa55f"
 
 [metadata.files]
 anyio = [

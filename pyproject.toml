@@ -13,6 +13,7 @@ uvicorn = "^0.18.3"
 sqlmodel = "^0.0.8"
 python-dotenv = "^0.21.0"
 validators = "^0.20.0"
+SQLAlchemy = "^1.4.41"
 
 
 [build-system]
