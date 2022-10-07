@@ -17,6 +17,6 @@ jobs:
       - name: Install poetry
         uses: abatilo/actions-poetry@v2
         with:
-          poetry-version: ${{ matrix.poetry-version }}
+          poetry-version: 1.2.1
       - name: Testing installation
         run: poetry version
