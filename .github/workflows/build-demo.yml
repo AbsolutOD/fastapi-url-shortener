@@ -2,6 +2,9 @@ name: Build Demo App
 run-name: Building the URL Shortener
 #on: [push]
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: url-shortener
 on:
   push:
     branches:
@@ -18,17 +21,17 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10' 
+      # - uses: actions/setup-python@v4
+      #   with:
+      #     python-version: '3.10' 
       
-      - name: Install poetry
-        uses: abatilo/actions-poetry@v2
-        with:
-          poetry-version: 1.2.1
+      # - name: Install poetry
+      #   uses: abatilo/actions-poetry@v2
+      #   with:
+      #     poetry-version: 1.2.1
       
-      - name: Testing installation
-        run: poetry version
+      # - name: Testing installation
+      #   run: poetry version
       
       - name: Set short sha
         id: sha
@@ -37,26 +40,33 @@ jobs:
       - name: Check short sha
         run: echo ${{ steps.sha.outputs.short_sha }}
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.DEMO_TOKEN }}
+      
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
             
-      # - name: Build container
-      #   uses: docker/build-push-action@v3
-      #   with:
-      #     context: .
-      #     push: true
-      #     tags: "cloudscape/url-shortener:${{ steps.sha.outputs.short_sha }}"
-      #     secrets: |
-      #       GIT_AUTH_TOKEN=${{ secrets.DEMO_TOKEN }}
-
-      - uses: pmorelli92/github-container-registry-build-push@2.0.0
-        name: Build and Publish latest service image
+      - name: Build container
+        uses: docker/build-push-action@v3
         with:
-          github-push-secret: ${{secrets.DEMO_TOKEN}}
-          docker-image-name: url-shortener
-          docker-image-tag: ${{ steps.sha.outputs.short_sha }}
-          #dockerfile-path: ./src/svc/Dockerfile # optional
-          build-context: .
+          context: .
+          push: true
+          tags: "${{ REGISTRY }}/${{ github.actor }}/url-shortener:${{ steps.sha.outputs.short_sha }}"
+          # secrets: |
+          #   GIT_AUTH_TOKEN=${{ secrets.DEMO_TOKEN }}
+
+      # - uses: pmorelli92/github-container-registry-build-push@2.0.0
+      #   name: Build and Publish latest service image
+      #   with:
+      #     github-push-secret: ${{secrets.DEMO_TOKEN}}
+      #     docker-image-name: url-shortener
+      #     docker-image-tag: ${{ steps.sha.outputs.short_sha }}
+      #     #dockerfile-path: ./src/svc/Dockerfile # optional
+      #     build-context: .
