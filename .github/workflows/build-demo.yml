@@ -47,6 +47,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: "cloudscape/url-shortener:"
+          tags: "cloudscape/url-shortener:${{ steps.sha.outputs.short_sha }}"
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.DEMO_TOKEN }}
