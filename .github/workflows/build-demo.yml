@@ -2,13 +2,14 @@ name: Build Demo App
 run-name: Building the URL Shortener
 #on: [push]
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: url-shortener
 on:
   push:
     branches:
       - 'main'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: url-shortener
 
 jobs:
   build-container:
