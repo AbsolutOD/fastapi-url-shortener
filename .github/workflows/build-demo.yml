@@ -1,6 +1,11 @@
 name: Build Demo App
 run-name: Building the URL Shortener
-on: [push]
+#on: [push]
+
+on:
+  push:
+    branches:
+      - 'main'
 
 jobs:
   build-container:
@@ -8,15 +13,40 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+      
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+      
       - uses: actions/setup-python@v4
         with:
           python-version: '3.10' 
+      
       - name: Install poetry
         uses: abatilo/actions-poetry@v2
         with:
           poetry-version: 1.2.1
+      
       - name: Testing installation
         run: poetry version
+      
+      - name: Set outputs
+        id: vars
+        run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      
+      - name: Check outputs
+        run: echo ${{ steps.vars.outputs.sha_short }}
+
+      # - name: Set up QEMU
+      #   uses: docker/setup-qemu-action@v2
+      
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v2
+            
+      # - name: Build container
+      #   uses: docker/build-push-action@v3
+      #   with:
+      #     push: true
+      #     tags: "cloudscape/url-shortener:"
+      #     secrets: |
+      #       GIT_AUTH_TOKEN=${{ secrets.DEMO_TOKEN }}
