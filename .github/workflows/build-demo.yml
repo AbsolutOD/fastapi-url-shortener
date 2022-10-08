@@ -35,7 +35,7 @@ jobs:
         run: echo "::set-output name=short_sha::$(git rev-parse --short HEAD)"
       
       - name: Check short sha
-        run: echo ${{ steps.sha.outputs.sha_short }}
+        run: echo ${{ steps.sha.outputs.short_sha }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
