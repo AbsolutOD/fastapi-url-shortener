@@ -1,5 +1,7 @@
 FROM python:3.10.7-slim-buster
 
+LABEL org.opencontainers.image.source="https://github.com/AbsolutOD/AbsolutOD/demo-url-shortener"
+
 # Configure Poetry
 ENV POETRY_VERSION=1.2.1
 ENV POETRY_HOME=/opt/poetry
