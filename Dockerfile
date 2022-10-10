@@ -1,27 +1,20 @@
-FROM python:3.10.7-slim-buster
-
-LABEL org.opencontainers.image.source="https://github.com/AbsolutOD/AbsolutOD/demo-url-shortener"
-
-# Configure Poetry
-ENV POETRY_VERSION=1.2.1
-ENV POETRY_HOME=/opt/poetry
-ENV POETRY_VENV=/opt/poetry-venv
-ENV POETRY_CACHE_DIR=/opt/.cache
-
-# Install poetry separated from system interpreter
-RUN python3 -m venv $POETRY_VENV \
-    && $POETRY_VENV/bin/pip install -U pip setuptools \
-    && $POETRY_VENV/bin/pip install poetry==${POETRY_VERSION}
-
-# Add `poetry` to PATH
-ENV PATH="${PATH}:${POETRY_VENV}/bin"
-
+FROM python:3.10.7-slim-buster as python
+ENV PYTHONUNBUFFERED=true
 WORKDIR /app
 
-# Install dependencies
-COPY poetry.lock pyproject.toml ./
-RUN poetry install
 
-# Run your app
-COPY . /app
+FROM python as poetry
+ENV POETRY_HOME=/opt/poetry
+ENV POETRY_VIRTUALENVS_IN_PROJECT=true
+ENV PATH="$POETRY_HOME/bin:$PATH"
+RUN python -c 'from urllib.request import urlopen; print(urlopen("https://install.python-poetry.org").read().decode())' | python -
+COPY . ./
+RUN poetry install --no-interaction --no-ansi -vvv
+
+
+
+FROM python as runtime
+ENV PATH="/app/.venv/bin:$PATH"
+COPY --from=poetry /app /app
+EXPOSE 8000
 CMD [ "uvicorn", "shortener_app.main:app" ]
