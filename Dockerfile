@@ -14,6 +14,8 @@ RUN poetry install --no-interaction --no-ansi -vvv
 
 
 FROM python as runtime
+LABEL org.opencontainers.image.source="https://github.com/AbsolutOD/AbsolutOD/demo-url-shortener"
+
 ENV PATH="/app/.venv/bin:$PATH"
 COPY --from=poetry /app /app
 EXPOSE 8000
