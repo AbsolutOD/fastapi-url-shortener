@@ -18,5 +18,5 @@ LABEL org.opencontainers.image.source="https://github.com/AbsolutOD/AbsolutOD/de
 
 ENV PATH="/app/.venv/bin:$PATH"
 COPY --from=poetry /app /app
-EXPOSE 8000
-CMD [ "uvicorn", "shortener_app.main:app" ]
+EXPOSE 80
+CMD [ "uvicorn", "shortener_app.main:app", "--host", "0.0.0.0", "--port", "80" ]

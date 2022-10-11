@@ -67,8 +67,6 @@ jobs:
           context: .
           push: true
           tags: "${{ env.REGISTRY }}/${{ steps.actor.outputs.lowercase }}/url-shortener:${{ steps.sha.outputs.short_sha }}"
-          # secrets: |
-          #   GIT_AUTH_TOKEN=${{ secrets.DEMO_TOKEN }}
 
       # - uses: pmorelli92/github-container-registry-build-push@2.0.0
       #   name: Build and Publish latest service image

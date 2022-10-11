@@ -100,3 +100,9 @@ def delete_url(
         return {"detail": message}
     else:
         raise_not_found(request)
+
+
+@app.get("/health/ping")
+def ping_url():
+    #return ":) Pong! :)"
+    return {"ping": "pong"}
