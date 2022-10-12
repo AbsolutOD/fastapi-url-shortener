@@ -76,6 +76,7 @@ jobs:
           tags: "${{ env.REGISTRY }}/${{ steps.actor.outputs.lowercase }}/url-shortener:${{ steps.sha.outputs.short_sha }}"
 
   call_update_image_tag:
+    needs: build_container
     runs-on: ubuntu-latest
     env:
       WORKING_DIR: manifests
