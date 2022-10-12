@@ -76,7 +76,41 @@ jobs:
           tags: "${{ env.REGISTRY }}/${{ steps.actor.outputs.lowercase }}/url-shortener:${{ steps.sha.outputs.short_sha }}"
 
   call_update_image_tag:
-    needs: build_container
-    uses: AbsolutOD/cs-gitops-demo/.github/workflows/update-image-tags.yaml@main
-    with:
-      image_tag: ${{needs.build_container.outputs.short_sha }}
+    runs-on: ubuntu-latest
+    env:
+      WORKING_DIR: manifests
+      GITOPS_REPO: AbsolutOD/cs-gitops-demo
+      DEPLOYMENT_MANIFEST: overlays/demo/deployment.yaml
+    # defaults:
+    #   run:
+    #     working-directory: manifests
+    steps:
+      - name: list env vars
+        run: env
+
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.GITOPS_REPO }}
+          path: ${{ env.WORKING_DIR }}
+      
+      - id: update-image
+        uses: Charlyzzz/update-k8s-image@v1.7.1
+        with:
+          manifest-path: "${{ env.WORKING_DIR }}/${{ env.DEPLOYMENT_MANIFEST }}"
+          new-image-tag: ${{ inputs.image_tag }}
+          name: url-shortener
+
+      # Example of using the output
+      - id: test
+        run: curl ${{ steps.update-image.outputs.old-image-tag }}
+
+      - name: git status
+        run: git status
+        working-directory: manifests
+
+  # call_update_image_tag:
+  #   needs: build_container
+  #   uses: AbsolutOD/cs-gitops-demo/.github/workflows/update-image-tags.yaml@main
+  #   with:
+  #     image_tag: ${{needs.build_container.outputs.short_sha }}
