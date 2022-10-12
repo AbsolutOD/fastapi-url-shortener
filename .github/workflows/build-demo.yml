@@ -1,3 +1,4 @@
+---
 name: Build Demo App
 run-name: Building the URL Shortener
 #on: [push]
@@ -11,10 +12,14 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: url-shortener
 
+
 jobs:
   build-container:
     runs-on: ubuntu-latest
     steps:
+      - name: list env vars
+        run: env
+      
       - name: Check out repository code
         uses: actions/checkout@v3
       
@@ -68,11 +73,8 @@ jobs:
           push: true
           tags: "${{ env.REGISTRY }}/${{ steps.actor.outputs.lowercase }}/url-shortener:${{ steps.sha.outputs.short_sha }}"
 
-      # - uses: pmorelli92/github-container-registry-build-push@2.0.0
-      #   name: Build and Publish latest service image
-      #   with:
-      #     github-push-secret: ${{secrets.DEMO_TOKEN}}
-      #     docker-image-name: url-shortener
-      #     docker-image-tag: ${{ steps.sha.outputs.short_sha }}
-      #     #dockerfile-path: ./src/svc/Dockerfile # optional
-      #     build-context: .
+  call-update-image-tag:
+    needs: build-container
+    uses: AbsolutOD/cs-gitops-demo/.github/workflows/update-image-tag.yaml@main
+    with:
+      image_tag: ${{ steps.sha.outputs.short_sha }}
