@@ -92,7 +92,7 @@ jobs:
         run: env
 
       - name: Echo Image Tag
-        run: echo "IMAGE_TAG -> ${{ needs.buid_container.outputs }}"
+        run: echo "IMAGE_TAG -> ${{ needs.build_container.outputs }}"
 
       - name: Check out repository code
         uses: actions/checkout@v3
