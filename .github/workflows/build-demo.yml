@@ -17,7 +17,7 @@ jobs:
   build_container:
     runs-on: ubuntu-latest
     outputs:
-      short_sha: ${{ steps.sha.outputs.short_sha }}
+      image_tag: ${{ steps.sha.outputs.short_sha }}
     steps:
       - name: list env vars
         run: env
@@ -88,6 +88,9 @@ jobs:
     steps:
       - name: list env vars
         run: env
+
+      - name: list env vars
+        run: "echo 'IMAGE_TAG: ${{ inputs.image_tag }}'"
 
       - name: Check out repository code
         uses: actions/checkout@v3
