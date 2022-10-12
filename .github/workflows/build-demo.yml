@@ -16,6 +16,8 @@ env:
 jobs:
   build_container:
     runs-on: ubuntu-latest
+    outputs:
+      short_sha: ${{ steps.sha.outputs.short_sha }}
     steps:
       - name: list env vars
         run: env
