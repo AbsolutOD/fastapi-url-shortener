@@ -14,7 +14,7 @@ env:
 
 
 jobs:
-  build-container:
+  build_container:
     runs-on: ubuntu-latest
     steps:
       - name: list env vars
@@ -74,7 +74,7 @@ jobs:
           tags: "${{ env.REGISTRY }}/${{ steps.actor.outputs.lowercase }}/url-shortener:${{ steps.sha.outputs.short_sha }}"
 
   call_update_image_tag:
-    needs: build-container
+    needs: build_container
     uses: AbsolutOD/cs-gitops-demo/.github/workflows/update-image-tags.yaml@main
     with:
-      image_tag: ${{needs.build-container.outputs.short_sha }}
+      image_tag: ${{needs.build_container.outputs.short_sha }}
