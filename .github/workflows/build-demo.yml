@@ -108,7 +108,7 @@ jobs:
         uses: Charlyzzz/update-k8s-image@v1.7.1
         with:
           manifest-path: "${{ env.WORKING_DIR }}/${{ env.DEPLOYMENT_MANIFEST }}"
-          new-image-tag: ${{ needs.buid_container.outputs.image_tag }}
+          new-image-tag: ${{ needs.build_container.outputs.image_tag }}
           container-name: url-shortener
 
       # Example of using the output
