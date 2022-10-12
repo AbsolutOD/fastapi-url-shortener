@@ -99,7 +99,7 @@ jobs:
         with:
           manifest-path: "${{ env.WORKING_DIR }}/${{ env.DEPLOYMENT_MANIFEST }}"
           new-image-tag: ${{ inputs.image_tag }}
-          name: url-shortener
+          container-name: url-shortener
 
       # Example of using the output
       - id: test
