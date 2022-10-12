@@ -86,11 +86,15 @@ jobs:
     #   run:
     #     working-directory: manifests
     steps:
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      
       - name: list env vars
         run: env
 
-      - name: list env vars
-        run: "echo 'IMAGE_TAG: ${{ inputs.image_tag }}'"
+      - name: Echo Image Tag
+        run: "echo 'IMAGE_TAG: ${{ needs.buid_container.outputs.image_tag }}'"
 
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -102,7 +106,7 @@ jobs:
         uses: Charlyzzz/update-k8s-image@v1.7.1
         with:
           manifest-path: "${{ env.WORKING_DIR }}/${{ env.DEPLOYMENT_MANIFEST }}"
-          new-image-tag: ${{ inputs.image_tag }}
+          new-image-tag: ${{ needs.buid_container.outputs.image_tag }}
           container-name: url-shortener
 
       # Example of using the output
