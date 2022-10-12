@@ -14,7 +14,7 @@ env:
 
 
 jobs:
-  build_container:
+  build-container:
     runs-on: ubuntu-latest
     steps:
       - name: list env vars
@@ -77,4 +77,4 @@ jobs:
     needs: build-container
     uses: AbsolutOD/cs-gitops-demo/.github/workflows/update-image-tags.yaml@main
     with:
-      image_tag: ${{needs.build_container.outputs.short_sha }}
+      image_tag: ${{needs.build-container.outputs.short_sha }}
