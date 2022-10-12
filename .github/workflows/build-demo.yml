@@ -92,7 +92,7 @@ jobs:
         run: env
 
       - name: Echo Image Tag
-        run: "echo 'IMAGE_TAG: ${{ needs.buid_container.outputs }}'"
+        run: echo "IMAGE_TAG -> ${{ needs.buid_container.outputs }}"
 
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -101,7 +101,7 @@ jobs:
           path: ${{ env.WORKING_DIR }}
       
       - name: List files in the repository
-        run: ls ${{ github.workspace }}
+        run: ls -al
         working-directory: manifests
 
       - id: update-image
