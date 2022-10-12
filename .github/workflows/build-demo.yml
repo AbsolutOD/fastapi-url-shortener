@@ -75,6 +75,6 @@ jobs:
 
   call-update-image-tag:
     needs: build-container
-    uses: AbsolutOD/cs-gitops-demo/.github/workflows/update-image-tag.yaml@main
+    uses: AbsolutOD/cs-gitops-demo/.github/workflows/update-image-tags.yaml@main
     with:
       image_tag: ${{ steps.sha.outputs.short_sha }}
