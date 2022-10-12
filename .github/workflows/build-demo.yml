@@ -16,8 +16,8 @@ env:
 jobs:
   build_container:
     runs-on: ubuntu-latest
-    # outputs:
-    #   image_tag: ${{ steps.sha.outputs.short_sha }}
+    outputs:
+      image_tag: ${{ steps.sha.outputs.short_sha }}
     steps:
       - name: list env vars
         run: env
@@ -74,8 +74,8 @@ jobs:
           context: .
           push: true
           tags: "${{ env.REGISTRY }}/${{ steps.actor.outputs.lowercase }}/url-shortener:${{ steps.sha.outputs.short_sha }}"
-    outputs:
-      image_tag: ${{ steps.sha.outputs.short_sha }}
+    # outputs:
+    #   image_tag: ${{ steps.sha.outputs.short_sha }}
 
   call_update_image_tag:
     needs: build_container
@@ -92,7 +92,7 @@ jobs:
         run: env
 
       - name: Echo Image Tag
-        run: echo "IMAGE_TAG -> ${{ needs.build_container.outputs }}"
+        run: echo "IMAGE_TAG -> ${{ needs.build_container.outputs.image_tag }}"
 
       - name: Check out repository code
         uses: actions/checkout@v3
