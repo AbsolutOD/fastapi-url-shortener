@@ -99,6 +99,8 @@ jobs:
         with:
           repository: ${{ env.GITOPS_REPO }}
           path: ${{ env.WORKING_DIR }}
+          token: ${{ secret.GITOPS_DEMO_PAT }}
+          persist-credentials: true
       
       - name: List files in the repository
         run: ls -al
