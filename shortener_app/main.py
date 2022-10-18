@@ -111,3 +111,8 @@ def ping_url():
 def ping_url():
     #return ":) Pong! :)"
     return {"ping": "pong"}
+
+@app.get("/od/game")
+def ping_url():
+    #return ":) Pong! :)"
+    return {"ping": "pong"}
