@@ -106,3 +106,8 @@ def delete_url(
 def ping_url():
     #return ":) Pong! :)"
     return {"ping": "pong"}
+
+@app.get("/foo/bar")
+def ping_url():
+    #return ":) Pong! :)"
+    return {"ping": "pong"}
