@@ -107,12 +107,7 @@ def ping_url():
     #return ":) Pong! :)"
     return {"ping": "pong"}
 
-@app.get("/foo/bar")
-def ping_url():
-    #return ":) Pong! :)"
-    return {"ping": "pong"}
 
 @app.get("/cloudscape/gitops")
-def ping_url():
-    #return ":) Pong! :)"
+def cloudscape():
     return {"ping": "pong"}
