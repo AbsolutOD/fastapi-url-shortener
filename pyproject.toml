@@ -14,6 +14,7 @@ sqlmodel = "^0.0.8"
 python-dotenv = "^0.21.0"
 validators = "^0.20.0"
 SQLAlchemy = "^1.4.41"
+psycopg2 = "^2.9.5"
 
 
 [build-system]
