@@ -82,7 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       WORKING_DIR: manifests
-      GITOPS_REPO: AbsolutOD/cs-gitops-demo
+      GITOPS_REPO: AbsolutOD/gitops-demo
       DEPLOYMENT_MANIFEST: overlays/demo/deployment.yaml
     # defaults:
     #   run:
